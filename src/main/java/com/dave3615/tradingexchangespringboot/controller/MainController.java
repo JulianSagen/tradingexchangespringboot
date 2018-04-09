@@ -31,9 +31,8 @@ public class MainController {
 
     @GetMapping("/registrer")
     public String BuildingForm(Model model) {
-        User user = new User();
 
-        model.addAttribute("user", user);
+        model.addAttribute("user", new User());
 
         System.out.println("Loading form");
         return "registrer";

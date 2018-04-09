@@ -62,9 +62,9 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 <h1>Create new Building</h1>
-<form action="#" th:action="@{/newuser}" th:object="${user}" method="post">
+<form action="#" th:action="@{/user/registrer}" th:object="${user}" method="post">
     <p>Name: <input type="text" th:field="*{username}" /></p>
-    <p>Address: <input type="text" th:field="*{password}" /></p>
+    <p>Password: <input type="text" th:field="*{password}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 </div>

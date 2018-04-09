@@ -21,16 +21,13 @@ public class UserController {
 
     private static final Logger logger = LogManager.getLogger(UserController.class);
 
-    @GetMapping("/registrer")
-    public String BuildingForm(Model model) {
-        logger.info("User accessed new building page");
+    @PostMapping("/registrer")
+    public String BuildingForm(@ModelAttribute User user, Model model) {
 
-        User user = new User();
+        loginService.registrer(user);
 
-        model.addAttribute("user", user);
-
-        System.out.println("Loading form");
-        return "registrer";
+        System.out.println("User registrered");
+        return "redirect:/";
     }
 
 
