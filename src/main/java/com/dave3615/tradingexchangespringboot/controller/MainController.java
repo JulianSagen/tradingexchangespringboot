@@ -30,12 +30,19 @@ public class MainController {
         }
 
     @GetMapping("/registrer")
-    public String BuildingForm(Model model) {
+    public String registrer(Model model) {
 
         model.addAttribute("user", new User());
 
         System.out.println("Loading form");
         return "registrer";
+    }
+
+    @GetMapping("/userpage")
+    public String userpage(Model model) {
+
+        System.out.println("Loading form");
+        return "accountadministration";
     }
 
 

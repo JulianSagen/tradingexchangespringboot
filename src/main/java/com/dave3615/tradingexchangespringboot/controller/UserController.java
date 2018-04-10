@@ -1,5 +1,6 @@
 package com.dave3615.tradingexchangespringboot.controller;
 
+import com.dave3615.tradingexchangespringboot.dao.UserDAO;
 import com.dave3615.tradingexchangespringboot.model.User;
 import com.dave3615.tradingexchangespringboot.service.LoginService;
 import org.apache.logging.log4j.LogManager;
@@ -19,12 +20,15 @@ public class UserController {
     @Autowired
     LoginService loginService;
 
+    @Autowired
+    UserDAO userDAO;
+
     private static final Logger logger = LogManager.getLogger(UserController.class);
 
     @PostMapping("/registrer")
     public String BuildingForm(@ModelAttribute User user, Model model) {
-
-        loginService.registrer(user);
+        User userExists = userDAO.findByUsername(user.getUsername());
+        loginService.registrerUser(user);
 
         System.out.println("User registrered");
         return "redirect:/";
