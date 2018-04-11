@@ -7,7 +7,7 @@ More changes will come in the final version
 
 Github repo for this project: https://github.com/teritry/tradingexchangespringboot
 
-See canvas comment for online link to application hosted on AWS.
+Application is up and running on AWS, and can be found here: http://bittradewebapp.us-east-2.elasticbeanstalk.com
 
 
 -Julian
