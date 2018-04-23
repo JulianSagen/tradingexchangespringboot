@@ -28,10 +28,14 @@ public class UserController {
     @PostMapping("/registrer")
     public String BuildingForm(@ModelAttribute User user, Model model) {
         User userExists = userDAO.findByUsername(user.getUsername());
-        loginService.registrerUser(user);
+        if (userExists == null) {
+            loginService.registrerUser(user);
+            System.out.println("User registrered");
+            return "redirect:/";
+        }else{
+            return "registrer";
+        }
 
-        System.out.println("User registrered");
-        return "redirect:/";
     }
 
 

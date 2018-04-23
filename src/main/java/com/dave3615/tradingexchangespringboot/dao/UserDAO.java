@@ -9,7 +9,5 @@ public interface UserDAO extends CrudRepository<User, Long> {
 
     User findById(int userId);
 
-
-
     User save(User user);
 }

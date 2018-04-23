@@ -21,6 +21,9 @@ public class User {
     private long bitcoins;
     private long usd;
 
+    @OneToMany
+    private Set<BuyOrder> buyOrders;
+
     private int active;
 
 

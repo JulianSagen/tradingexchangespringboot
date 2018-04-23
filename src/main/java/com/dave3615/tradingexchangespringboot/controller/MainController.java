@@ -1,6 +1,8 @@
 package com.dave3615.tradingexchangespringboot.controller;
 
 import com.dave3615.tradingexchangespringboot.dao.UserDAO;
+import com.dave3615.tradingexchangespringboot.model.BuyOrder;
+import com.dave3615.tradingexchangespringboot.model.SellOrder;
 import com.dave3615.tradingexchangespringboot.model.User;
 import com.dave3615.tradingexchangespringboot.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +61,16 @@ public class MainController {
         return "accountadministration";
     }
 
+    @GetMapping("/order")
+    public String order(Model model) {
 
+        model.addAttribute("buyorder", new BuyOrder());
+        model.addAttribute("sellorder", new SellOrder());
+
+
+        System.out.println("Loading form");
+        return "placeorder";
+    }
 
 
 
