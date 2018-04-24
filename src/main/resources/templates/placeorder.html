@@ -62,45 +62,49 @@
             </ul>
 
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <div id="buyorder" >
-        <form action="#" th:action="@{/trade/place/buyorder}" th:object="${buyorder}" method="post">
-            <table>
-                <tr>
-                    <td>Title:</td>
-                    <td><input type="number" th:field="*{price}" /></td>
-                </tr>
-                <tr>
-                    <td>Content:</td>
-                    <td><input type="text" th:field="*{amountLeft}" /></td>
-                </tr>
-                <tr>
-                    <td><button type="submit">Submit post</button></td>
-                </tr>
-            </table>
-        </form>
-            </div>
-            <div id="sellorder">
-                <form action="#" th:action="@{/trade/place/sellorder}" th:object="${sellorder}" method="post">
+        <div class="col-sm-3 col-sm-offset-1 col-md-4 col-md-offset-2 main">
+            <div id="buyorder">
+                <form action="#" th:action="@{/trade/place/buyorder}" th:object="${buyorder}" method="post">
                     <table>
                         <tr>
                             <td>Title:</td>
-                            <td><input type="number" th:field="*{price}" /></td>
+                            <td><input type="number" th:field="*{price}"/></td>
                         </tr>
                         <tr>
                             <td>Content:</td>
-                            <td><input type="text" th:field="*{amountLeft}" /></td>
+                            <td><input type="text" th:field="*{amountLeft}"/></td>
                         </tr>
                         <tr>
-                            <td><button type="submit">Submit post</button></td>
+                            <td>
+                                <button type="submit">Submit post</button>
+                            </td>
                         </tr>
                     </table>
                 </form>
             </div>
+        </div>
+        <div id="sellorder" class="col-sm-3 col-sm-offset-1 col-md-4 col-md-offset-2 main">
+            <form action="#" th:action="@{/trade/place/sellorder}" th:object="${sellorder}" method="post">
+                <table>
+                    <tr>
+                        <td>Title:</td>
+                        <td><input type="number" th:field="*{price}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Content:</td>
+                        <td><input type="text" th:field="*{amountLeft}"/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit">Submit post</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
 
 
-</div>
-</div>
+    </div>
 </div>
 
 <!-- Bootstrap core JavaScript

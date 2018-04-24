@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -101,10 +102,12 @@ public class TradeService {
     }
 
     public List<BuyOrder> getBuyOrders(){
-        return tradeBuyDAO.findAllByOrderByPriceDesc();
+        List<BuyOrder> buyOrders = tradeBuyDAO.findAllByOrderByPriceDesc();
+        return buyOrders.stream().filter(buyOrder -> buyOrder.getAmountLeft() != 0).collect(Collectors.toList());
     }
     public List<SellOrder> getSellOrders(){
-        return tradeSellDAO.findAllByOrderByPriceDesc();
+        List<SellOrder> sellOrders = tradeSellDAO.findAllByOrderByPriceDesc();
+        return sellOrders.stream().filter(sellOrder -> sellOrder.getAmountLeft() != 0).collect(Collectors.toList());
     }
 
 
