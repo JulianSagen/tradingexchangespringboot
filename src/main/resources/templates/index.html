@@ -2,109 +2,122 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="dist/img/favicon.ico">
 
-    <title>Julian Assignment 3</title>
+    <title>BitTracker</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/3.3/examples/dashboard/dashboard.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="dist/js/bootstrap.min.css" rel="stylesheet">
 
 
 </head>
 
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="nreturn "index";avbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">BitTrade</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">BitTrade</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/order">Order</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/registrer">Registrer</a>
+            </li>
+        </ul>
+        <div sec:authorize="isAuthenticated()">
+            <span class="text-success">USD: <span th:text="${user.usd}"></span></span>
+            <span class="text-danger"> Bitcoin: <span th:text="${user.bitcoins}"></span>  </span>
+            <a th:href="@{/logout}" type="button" class="btn btn-danger form-inline my-2 my-lg-0">Logout</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/user/logout">Logout</a></li>
-            </ul>
+        <div sec:authorize="isAnonymous()">
+            <a th:href="@{/login}" type="button" class="btn btn-success">Login</a>
         </div>
     </div>
 </nav>
+<!--<form action="#" th:action="@{/trade/place/buyorder}" th:object="${buyorder}" method="post">--->
+<!---<form action="#" th:action="@{/trade/place/sellorder}" th:object="${sellorder}" method="post">---->
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
-                <li><a href="/registrer">Registrer user</a></li>
-                <li><a href="/login">Login user</a></li>
-                <li><a href="/userpage">Personal page</a></li>
-            </ul>
-
+<div class="row" style="margin-top: 1em">
+    <div class="col-md-1"></div>
+    <div class="jumbotron col-md-5">
+        <div class="card mb-4 box-shadow" id="buy" style="border-style: solid">
+            <h2>Buy Orders:</h2>
+            <table id="buybook" dt:table="true">
+                <thead>
+                <tr>
+                    <th>Price</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="buyorder : ${buyorders}">
+                    <td th:text="${buyorder?.price}">1</td>
+                    <td th:text="${buyorder?.amountLeft}">Doe</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Current Transactions: </h1>
-            <div id="tradebook" class="card-deck mb-3 text-center">
-                <div class="card mb-4 box-shadow" id="buy" style="border-style: solid">
-                    <h2>Buy Orders:</h2>
-                    <table id="buybook" dt:table="true">
-                        <thead>
-                        <tr>
-                            <th>Price</th>
-                            <th>Amount</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="buyorder : ${buyorders}">
-                            <td th:text="${buyorder?.price}">1</td>
-                            <td th:text="${buyorder?.amountLeft}">Doe</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
 
-                <div class="card mb-4 box-shadow" id="sell" style="border-style: solid">
-                    <h2>Sell Orders:</h2>
-                    <table id="sellbook" dt:table="true">
-                        <thead>
-                        <tr>
-                            <th>Price</th>
-                            <th>Amount</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="sellorder : ${sellorders}">
-                            <td th:text="${sellorder?.price}">1</td>
-                            <td th:text="${sellorder?.amountLeft}">Doe</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-
-            </div>
+        <div class="card mb-4 box-shadow" id="sell" style="border-style: solid">
+            <h2>Sell Orders:</h2>
+            <table id="sellbook" dt:table="true">
+                <thead>
+                <tr>
+                    <th>Price</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sellorder : ${sellorders}">
+                    <td th:text="${sellorder?.price}">1</td>
+                    <td th:text="${sellorder?.amountLeft}">Doe</td>
+                </tr>
+                </tbody>
+            </table>
 
         </div>
     </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <div class="jumbotron">
+            <div style="margin-top: 2em">
+                <h4>Public Transaction Log:</h4>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Buy/Sell</th>
+                        <th scope="col">Bitcoin Price</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Date of Transaction</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="transaction : ${transactions}" class="table-active">
+                        <td th:text="${transactionfromuser?.buyOrSell}">Column content</td>
+                        <td th:text="${transactionfromuser?.price}"></td>
+                        <td th:text="${transactionfromuser?.amount}"></td>
+                        <td th:text="${transactionfromuser?.transactionTime}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
 </div>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="../../dist/js/bootstrap.min.js"></script>
-
+</div>
+<script src="dist/js/jquery.min.js"></script>
 </body>
 </html>

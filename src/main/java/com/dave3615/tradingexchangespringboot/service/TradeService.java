@@ -101,7 +101,7 @@ public class TradeService {
     }
 
     public List<BuyOrder> getBuyOrders(){
-        List<BuyOrder> buyOrders = tradeBuyDAO.findAllByOrderByPriceAsc();
+        List<BuyOrder> buyOrders = tradeBuyDAO.findAllByOrderByPriceDesc();
         return buyOrders.stream().filter(buyOrder -> buyOrder.getAmountLeft() != 0).collect(Collectors.toList());
     }
     public List<SellOrder> getSellOrders(){
@@ -115,5 +115,8 @@ public class TradeService {
         return tradeSellDAO.findAllByUser(user);
     }
 
+    public List<Transaction> getTransactions(){ return transactionDAO.findAll(); }
     public List<Transaction> getTransactionsFromUser(User user){ return transactionDAO.findAllByUser(user); }
+
+
 }

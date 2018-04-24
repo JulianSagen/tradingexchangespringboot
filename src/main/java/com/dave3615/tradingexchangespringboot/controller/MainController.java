@@ -33,22 +33,38 @@ public class MainController {
 
         @GetMapping("/")
         public String home(Model model) {
+            if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+                System.out.println("dfd");
+                Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                User user = userDAO.findByUsername(((UserDetails) principal).getUsername());
+                model.addAttribute("user", user);
+            }
 
             model.addAttribute("buyorders", tradeService.getBuyOrders());
             model.addAttribute("sellorders", tradeService.getSellOrders());
+            model.addAttribute("transactions", tradeService.getTransactions());
 
-            System.out.println("Loading form");
             return "index";
         }
 
         @GetMapping("/login")
         public String login(Model model) {
+            if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+                Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                User user = userDAO.findByUsername(((UserDetails) principal).getUsername());
+                model.addAttribute("user", user);
+            }
             System.out.println("Loading form");
             return "login";
         }
 
     @GetMapping("/registrer")
     public String registrer(Model model) {
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userDAO.findByUsername(((UserDetails) principal).getUsername());
+            model.addAttribute("user", user);
+        }
 
         model.addAttribute("user", new User());
 
@@ -77,6 +93,8 @@ public class MainController {
 
         model.addAttribute("buyorder", new BuyOrder());
         model.addAttribute("sellorder", new SellOrder());
+
+        model.addAttribute("user", user);
 
         model.addAttribute("buyordersfromuser", tradeService.buyOrdersFromUser(user));
         model.addAttribute("sellordersfromuser", tradeService.sellOrdersFromUser(user));

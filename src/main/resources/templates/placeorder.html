@@ -36,7 +36,14 @@
                 <a class="nav-link" href="/registrer">Registrer</a>
             </li>
         </ul>
-        <button type="button" class="btn btn-danger form-inline my-2 my-lg-0">Logout</button>
+        <div sec:authorize="isAuthenticated()">
+            <span class="text-success">USD: <span th:text="${user.usd}"></span></span>
+            <span class="text-danger"> Bitcoin: <span th:text="${user.bitcoins}"></span>  </span>
+            <button th:href="@{/logout}" type="button" class="btn btn-danger form-inline my-2 my-lg-0">Logout</button>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <button th:href="@{/login}" type="button" class="btn btn-success">Success</button>
+        </div>
     </div>
 </nav>
 <!--<form action="#" th:action="@{/trade/place/buyorder}" th:object="${buyorder}" method="post">--->
