@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TransactionDAO extends CrudRepository<Transaction, Long> {
 
-
+    List<Transaction> findAllByUser(User user);
 
     Transaction save(Transaction transaction);
 }

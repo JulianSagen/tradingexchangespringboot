@@ -16,6 +16,10 @@ public class Transaction {
     @ManyToOne
     private User user;
 
+    public Transaction(){
+
+    }
+
     public Transaction(Long price, Long amount, String buyOrSell, Date transactionTime, User user) {
         this.price = price;
         this.amount = amount;

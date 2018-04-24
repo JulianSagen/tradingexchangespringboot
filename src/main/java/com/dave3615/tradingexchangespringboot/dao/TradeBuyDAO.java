@@ -10,6 +10,7 @@ import java.util.Set;
 public interface TradeBuyDAO extends CrudRepository<BuyOrder, Long> {
 
     List<BuyOrder> findAll();
+    List<BuyOrder> findAllByOrderByPriceAsc();
     List<BuyOrder> findAllByOrderByPriceDesc();
     List<BuyOrder> findAllByUser(User user);
     BuyOrder save(BuyOrder buyOrder);

@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -43,7 +42,7 @@ public class TradeService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDAO.findByUsername(((UserDetails)principal).getUsername());
         buyOrder.setUser(user);
-        buyOrder.setTime(new java.util.Date());
+        buyOrder.setDate(new java.util.Date());
         buyOrder.setTotalAmount(buyOrder.getAmountLeft());
         tradeBuyDAO.save(buyOrder);
         bookOrders();
@@ -52,7 +51,7 @@ public class TradeService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDAO.findByUsername(((UserDetails)principal).getUsername());
         sellOrder.setUser(user);
-        sellOrder.setTime(new java.util.Date());
+        sellOrder.setDate(new java.util.Date());
         sellOrder.setTotalAmount(sellOrder.getAmountLeft());
         tradeSellDAO.save(sellOrder);
         bookOrders();
@@ -87,8 +86,8 @@ public class TradeService {
                 sellOrder.setAmountLeft(sellOrder.getAmountLeft()-numberToBeTraded);
                 tradeBuyDAO.save(buyOrder);
                 tradeSellDAO.save(sellOrder);
-                transactionLogger(buyOrder.getUser(),"buy",numberToBeTraded,sellOrder.getPrice(), new Date());
-                transactionLogger(sellOrder.getUser(),"sell",numberToBeTraded,sellOrder.getPrice(), new Date());
+                transactionLogger(buyOrder.getUser(),"BUY",numberToBeTraded,sellOrder.getPrice(), new java.util.Date());
+                transactionLogger(sellOrder.getUser(),"SELL",numberToBeTraded,sellOrder.getPrice(), new java.util.Date());
                 logger.info("Trade of " + numberToBeTraded + "Bitcoins was transfered for a price of " + sellOrder.getPrice() + "USD.");
             }else{
                 logger.info("Transaction aborted. One user had insufficient balance");
@@ -102,15 +101,19 @@ public class TradeService {
     }
 
     public List<BuyOrder> getBuyOrders(){
-        List<BuyOrder> buyOrders = tradeBuyDAO.findAllByOrderByPriceDesc();
+        List<BuyOrder> buyOrders = tradeBuyDAO.findAllByOrderByPriceAsc();
         return buyOrders.stream().filter(buyOrder -> buyOrder.getAmountLeft() != 0).collect(Collectors.toList());
     }
     public List<SellOrder> getSellOrders(){
-        List<SellOrder> sellOrders = tradeSellDAO.findAllByOrderByPriceDesc();
+        List<SellOrder> sellOrders = tradeSellDAO.findAllByOrderByPriceAsc();
         return sellOrders.stream().filter(sellOrder -> sellOrder.getAmountLeft() != 0).collect(Collectors.toList());
     }
+    public List<BuyOrder> buyOrdersFromUser(User user){
+        return tradeBuyDAO.findAllByUser(user);
+    }
+    public List<SellOrder> sellOrdersFromUser(User user){
+        return tradeSellDAO.findAllByUser(user);
+    }
 
-
-
-
+    public List<Transaction> getTransactionsFromUser(User user){ return transactionDAO.findAllByUser(user); }
 }

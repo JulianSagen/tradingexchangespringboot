@@ -1,6 +1,7 @@
 package com.dave3615.tradingexchangespringboot.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -9,10 +10,12 @@ public class BuyOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
     private Long price;
+    @NotNull
     private Long amountLeft;
     private Long totalAmount;
-    private Date Time;
+    private Date date;
 
     @ManyToOne
     private User user;
@@ -50,12 +53,12 @@ public class BuyOrder {
         this.totalAmount = totalAmount;
     }
 
-    public Date getTime() {
-        return Time;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTime(Date time) {
-        Time = time;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public User getUser() {

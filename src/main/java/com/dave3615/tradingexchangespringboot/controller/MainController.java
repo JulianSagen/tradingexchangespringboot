@@ -72,9 +72,16 @@ public class MainController {
 
     @GetMapping("/order")
     public String order(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDAO.findByUsername(((UserDetails)principal).getUsername());
 
         model.addAttribute("buyorder", new BuyOrder());
         model.addAttribute("sellorder", new SellOrder());
+
+        model.addAttribute("buyordersfromuser", tradeService.buyOrdersFromUser(user));
+        model.addAttribute("sellordersfromuser", tradeService.sellOrdersFromUser(user));
+
+        model.addAttribute("transactionsfromuser", tradeService.getTransactionsFromUser(user));
 
 
         System.out.println("Loading form");
