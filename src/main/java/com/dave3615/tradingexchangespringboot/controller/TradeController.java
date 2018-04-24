@@ -11,6 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import sun.awt.AWTIcon32_security_icon_yellow16_png;
 
 import javax.xml.ws.Response;
 import java.net.URI;
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -50,7 +53,6 @@ public class TradeController {
 
     @GetMapping("/get/buysellorders")
     public ResponseEntity<AjaxResponseBody> getBuyOrder() {
-        List<BuyOrder> buyOrders = tradeService.getBuyOrders();
         AjaxResponseBody result = new AjaxResponseBody("Body created", tradeService.getBuyOrders(), tradeService.getSellOrders());
         System.out.println(result.toString());
         return ResponseEntity.ok(result);

@@ -5,6 +5,7 @@ import com.dave3615.tradingexchangespringboot.model.BuyOrder;
 import com.dave3615.tradingexchangespringboot.model.SellOrder;
 import com.dave3615.tradingexchangespringboot.model.User;
 import com.dave3615.tradingexchangespringboot.service.LoginService;
+import com.dave3615.tradingexchangespringboot.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -16,18 +17,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/")
 public class MainController {
 
         @Autowired
         LoginService loginService;
+        @Autowired
+        TradeService tradeService;
 
         @Autowired
         UserDAO userDAO;
 
         @GetMapping("/")
         public String home(Model model) {
+
+            model.addAttribute("buyorders", tradeService.getBuyOrders());
+            model.addAttribute("sellorders", tradeService.getSellOrders());
+
             System.out.println("Loading form");
             return "index";
         }

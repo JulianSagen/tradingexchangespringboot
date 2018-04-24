@@ -10,7 +10,8 @@ public class BuyOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long price;
-    private Long amount;
+    private Long amountLeft;
+    private Long totalAmount;
     private Date Time;
 
     @ManyToOne
@@ -33,12 +34,20 @@ public class BuyOrder {
         this.price = price;
     }
 
-    public Long getAmount() {
-        return amount;
+    public Long getAmountLeft() {
+        return amountLeft;
     }
 
-    public void setAmount(Long amount) {
-        this.amount = amount;
+    public void setAmountLeft(Long amountLeft) {
+        this.amountLeft = amountLeft;
+    }
+
+    public Long getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Long totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public Date getTime() {

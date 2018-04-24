@@ -11,6 +11,7 @@ public interface TradeSellDAO extends CrudRepository<SellOrder, Long> {
 
 
     List<SellOrder> findAll();
+    List<SellOrder>  findAllByOrderByPriceDesc();
     List<SellOrder> findByUser(User user);
     BuyOrder save(BuyOrder buyOrder);
 }
