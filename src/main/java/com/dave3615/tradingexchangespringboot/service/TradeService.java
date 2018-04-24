@@ -3,9 +3,11 @@ package com.dave3615.tradingexchangespringboot.service;
 import com.dave3615.tradingexchangespringboot.controller.TradeController;
 import com.dave3615.tradingexchangespringboot.dao.TradeBuyDAO;
 import com.dave3615.tradingexchangespringboot.dao.TradeSellDAO;
+import com.dave3615.tradingexchangespringboot.dao.TransactionDAO;
 import com.dave3615.tradingexchangespringboot.dao.UserDAO;
 import com.dave3615.tradingexchangespringboot.model.BuyOrder;
 import com.dave3615.tradingexchangespringboot.model.SellOrder;
+import com.dave3615.tradingexchangespringboot.model.Transaction;
 import com.dave3615.tradingexchangespringboot.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +32,9 @@ public class TradeService {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private TransactionDAO transactionDAO;
 
     private static final Logger logger = LogManager.getLogger(TradeController.class);
 
@@ -64,12 +70,11 @@ public class TradeService {
                 }
             }
         }
-
     }
 
     public void completeOrder(BuyOrder buyOrder, SellOrder sellOrder){
         if(buyOrder.getPrice() >= sellOrder.getPrice()){
-            logger.info("Trade started between buyer:" + buyOrder.getUser().getUsername() + "and seller: " + sellOrder.getUser().getUsername() + ".");
+            logger.info("Trade started between buyer:" + buyOrder.getUser().getUsername() + " and seller: " + sellOrder.getUser().getUsername() + ".");
             long numberToBeTraded = (buyOrder.getAmountLeft() >= sellOrder.getAmountLeft()) ? sellOrder.getAmountLeft() : buyOrder.getAmountLeft();
             System.out.println(numberToBeTraded);
             if (buyOrder.getUser().getUsd() >= numberToBeTraded * sellOrder.getPrice() && sellOrder.getUser().getBitcoins() >= numberToBeTraded){
@@ -81,11 +86,18 @@ public class TradeService {
                 sellOrder.setAmountLeft(sellOrder.getAmountLeft()-numberToBeTraded);
                 tradeBuyDAO.save(buyOrder);
                 tradeSellDAO.save(sellOrder);
+                transactionLogger(buyOrder.getUser(),"buy",numberToBeTraded,sellOrder.getPrice(), new Date());
+                transactionLogger(sellOrder.getUser(),"sell",numberToBeTraded,sellOrder.getPrice(), new Date());
                 logger.info("Trade of " + numberToBeTraded + "Bitcoins was transfered for a price of " + sellOrder.getPrice() + "USD.");
             }else{
                 logger.info("Transaction aborted. One user had insufficient balance");
             }
         }
+    }
+
+    public void transactionLogger(User user, String buyOrSell, long amount, long price, Date transationCompletedDate){
+        Transaction transaction = new Transaction(price,amount,buyOrSell,transationCompletedDate, user);
+        transactionDAO.save(transaction);
     }
 
     public List<BuyOrder> getBuyOrders(){
