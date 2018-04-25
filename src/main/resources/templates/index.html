@@ -49,9 +49,9 @@
 <!--<form action="#" th:action="@{/trade/place/buyorder}" th:object="${buyorder}" method="post">--->
 <!---<form action="#" th:action="@{/trade/place/sellorder}" th:object="${sellorder}" method="post">---->
 
-<div class="row" style="margin-top: 1em">
+<div class="row" >
     <div class="col-md-1"></div>
-    <div class="jumbotron col-md-5">
+    <div class="jumbotron col-md-5" style="margin: 2em">
         <div class="card mb-4 box-shadow" id="buy" style="border-style: solid">
             <h2>Buy Orders:</h2>
             <table id="buybook" dt:table="true">
@@ -89,10 +89,8 @@
 
         </div>
     </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-4">
+    <div class="col-md-5" style="margin: 2em">
         <div class="jumbotron">
-            <div style="margin-top: 2em">
                 <h4>Public Transaction Log:</h4>
                 <table class="table table-hover">
                     <thead>
@@ -101,14 +99,17 @@
                         <th scope="col">Bitcoin Price</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Date of Transaction</th>
+                        <th scope="col">User</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="transaction : ${transactions}" class="table-active">
-                        <td th:text="${transactionfromuser?.buyOrSell}">Column content</td>
-                        <td th:text="${transactionfromuser?.price}"></td>
-                        <td th:text="${transactionfromuser?.amount}"></td>
-                        <td th:text="${transactionfromuser?.transactionTime}"></td>
+                    <tr th:each="transaction : ${transactions}" >
+                        <td th:text="${transaction?.buyOrSell}">Column content</td>
+                        <td th:text="${transaction?.price}"></td>
+                        <td th:text="${transaction?.amount}"></td>
+                        <td th:text="${transaction?.transactionTime}"></td>
+                        <td th:text="${transaction?.user.username}"></td>
+
                     </tr>
                     </tbody>
                 </table>

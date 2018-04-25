@@ -34,7 +34,6 @@ public class MainController {
         @GetMapping("/")
         public String home(Model model) {
             if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
-                System.out.println("dfd");
                 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                 User user = userDAO.findByUsername(((UserDetails) principal).getUsername());
                 model.addAttribute("user", user);
