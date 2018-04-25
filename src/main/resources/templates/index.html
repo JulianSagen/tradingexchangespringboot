@@ -8,7 +8,8 @@
 
     <!-- Bootstrap -->
     <link href="dist/js/bootstrap.min.css" rel="stylesheet">
-
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 </head>
 
@@ -44,11 +45,11 @@
         <div sec:authorize="isAnonymous()">
             <a th:href="@{/login}" type="button" class="btn btn-success">Login</a>
         </div>
-    </div>
+            </div>
 </nav>
 <!--<form action="#" th:action="@{/trade/place/buyorder}" th:object="${buyorder}" method="post">--->
 <!---<form action="#" th:action="@{/trade/place/sellorder}" th:object="${sellorder}" method="post">---->
-
+<div class="container-fluid">
 <div class="row" >
     <div class="col-md-1"></div>
     <div class="col-md-5" style="margin: 2em">
@@ -80,7 +81,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="sellorder : ${sellorders}">
+                <tr class="table-active" th:each="sellorder : ${sellorders}">
                     <td th:text="${sellorder?.price}">1</td>
                     <td th:text="${sellorder?.amountLeft}">Doe</td>
                 </tr>
@@ -89,7 +90,7 @@
 
         </div>
     </div>
-    <div class="col-md-5" style="margin: 2em">
+    <div class="col-md-5" style="margin-top: 2em">
         <div class="jumbotron">
                 <h4>Public Transaction Log:</h4>
                 <table class="table table-hover">
@@ -117,6 +118,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="fixed-bottom"><!-- Place this tag where you want the button to render. -->
+    <a class="github-button" href="https://github.com/teritry/tradingexchangespringboot" data-show-count="true" aria-label="Star teritry/tradingexchangespringboot on GitHub">Star</a></div>
 </div>
 </div>
 <script src="dist/js/jquery.min.js"></script>
