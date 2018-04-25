@@ -115,7 +115,7 @@ public class TradeService {
         return tradeSellDAO.findAllByUser(user);
     }
 
-    public List<Transaction> getTransactions(){ return transactionDAO.findAll(); }
+    public List<Transaction> getTransactions(){ return transactionDAO.findAllByOrderByTransactionTimeDesc(); }
     public List<Transaction> getTransactionsFromUser(User user){ return transactionDAO.findAllByUser(user); }
 
 

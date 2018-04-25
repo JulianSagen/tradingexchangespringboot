@@ -51,18 +51,18 @@
 
 <div class="row" >
     <div class="col-md-1"></div>
-    <div class="jumbotron col-md-5" style="margin: 2em">
-        <div class="card mb-4 box-shadow" id="buy" style="border-style: solid">
-            <h2>Buy Orders:</h2>
-            <table id="buybook" dt:table="true">
+    <div class="col-md-5" style="margin: 2em">
+        <div class="jumbotron " id="buy" >
+            <h4>Active Buy Orders:</h4>
+            <table id="buybook" class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Price</th>
-                    <th>Amount</th>
+                    <th>Price(USD)</th>
+                    <th>Amount(Bitcoins)</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="buyorder : ${buyorders}">
+                <tr class="table-active" th:each="buyorder : ${buyorders}">
                     <td th:text="${buyorder?.price}">1</td>
                     <td th:text="${buyorder?.amountLeft}">Doe</td>
                 </tr>
@@ -70,13 +70,13 @@
             </table>
         </div>
 
-        <div class="card mb-4 box-shadow" id="sell" style="border-style: solid">
-            <h2>Sell Orders:</h2>
-            <table id="sellbook" dt:table="true">
+        <div class="jumbotron" id="sell">
+            <h4>Active Sell Orders:</h4>
+            <table id="sellbook" class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Price</th>
-                    <th>Amount</th>
+                    <th>Price(USD</th>
+                    <th>Amount(Bitcoins)</th>
                 </tr>
                 </thead>
                 <tbody>

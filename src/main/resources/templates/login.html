@@ -42,21 +42,21 @@
             <button th:href="@{/logout}" type="button" class="btn btn-danger form-inline my-2 my-lg-0">Logout</button>
         </div>
         <div sec:authorize="isAnonymous()">
-            <button th:href="@{/login}" type="button" class="btn btn-success">Success</button>
+            <button th:href="@{/login}" type="button" class="btn btn-success">Login</button>
         </div>
     </div>
 </nav>
 <!--<form action="#" th:action="@{/trade/place/buyorder}" th:object="${buyorder}" method="post">--->
 <!---<form action="#" th:action="@{/trade/place/sellorder}" th:object="${sellorder}" method="post">---->
 
-<div class="row" style="margin-top: 1em">
+<div class="row justify-content-md-center" style="margin-top: 1em">
     <div class="col-md-1"></div>
     <div class="jumbotron col-md-5">
         <form th:action="@{/login}" method="post">
             <h1>Please Sign In</h1>
-            <input type="text" class="form-control" name="username" id="username" placeholder="UserName" required="true" autofocus="true"/>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="true"/>
-            <input type="submit" class="btn btn-primary" value="Sign In"/>
+            <input style="margin: 1em" type="text" class="form-control" name="username" id="username" placeholder="UserName" required="true" autofocus="true"/>
+            <input style="margin: 1em" type="password" class="form-control" name="password" id="password" placeholder="Password" required="true"/>
+            <input style="margin: 1em" type="submit" class="btn btn-primary" value="Sign In"/>
 
         </form>
 

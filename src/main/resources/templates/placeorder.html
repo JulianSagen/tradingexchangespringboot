@@ -61,7 +61,7 @@
                         <label class="col-form-label" for="amountBuyOrder">Amount: </label>
                         <input type="number" class="form-control" placeholder="Bitcoins" th:field="*{amountLeft}"
                                id="amountBuyOrder">
-                        <label class="col-form-label" for="priceBuyOrder">Price: </label>
+                        <label class="col-form-label" for="priceBuyOrder">Price(USD): </label>
                         <input type="number" class="form-control" placeholder="Price/bitcoin" th:field="*{price}"
                                id="priceBuyOrder">
                         <button type="submit" class="btn btn-primary" style="margin-top: 1em">Place Buy Order</button>
@@ -135,10 +135,10 @@
                 <tr>
                     <th scope="col">Reminding Amount</th>
                     <th scope="col">Total Amount</th>
-                    <th scope="col">Buying Price</th>
+                    <th scope="col">Selling Price</th>
                     <th scope="col">Date</th>
                 </tr>
-                </thead>
+                </thead>Buying
                 <tbody>
                 <tr th:each="sellorderfromuser : ${sellordersfromuser}" class="table-active">
                     <td th:text="${sellorderfromuser?.amountLeft}">Column content</td>

@@ -42,23 +42,23 @@
             <button th:href="@{/logout}" type="button" class="btn btn-danger form-inline my-2 my-lg-0">Logout</button>
         </div>
         <div sec:authorize="isAnonymous()">
-            <button th:href="@{/login}" type="button" class="btn btn-success">Success</button>
+            <button th:href="@{/login}" type="button" class="btn btn-success">Login</button>
         </div>
     </div>
 </nav>
 <!--<form action="#" th:action="@{/trade/place/buyorder}" th:object="${buyorder}" method="post">--->
 <!---<form action="#" th:action="@{/trade/place/sellorder}" th:object="${sellorder}" method="post">---->
 
-<div class="row" style="margin-top: 1em">
+<div class="row justify-content-md-center" style="margin-top: 1em">
     <div class="col-md-1"></div>
     <div class="jumbotron col-md-5">
         <h2>Registrer new user:</h2>
         <form action="#" th:action="@{/user/registrer}" th:object="${user}" method="post">
-            <p>Name: <input class="form-control"  type="text" th:field="*{username}" /></p>
-            <p>Password: <input class="form-control"  type="text" th:field="*{password}" /></p>
-            <p><input type="submit" class="btn btn-primary" value="Submit" /> <input type="reset" value="Reset" /></p>
+            <p>Name: <input class="form-control" type="text" th:field="*{username}"/></p>
+            <p>Password: <input class="form-control" type="text" th:field="*{password}"/></p>
+            <p><input type="submit" class="btn btn-primary" value="Submit"/> <input type="reset" value="Reset"/></p>
         </form>
-
+    </div>
 </div>
 <script src="dist/js/jquery.min.js"></script>
 </body>
