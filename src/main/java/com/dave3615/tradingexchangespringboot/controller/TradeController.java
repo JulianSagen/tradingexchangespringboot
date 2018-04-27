@@ -51,6 +51,21 @@ public class TradeController {
         return "redirect:/order";
     }
 
+    @PostMapping("/remove/buybid/{id}")
+    public String removeBuyOrder(@PathVariable long id, Model model) {
+        tradeService.removeBuyBid(id);
+        logger.info("User removed buyorder: " + id);
+        return "redirect:/order";
+    }
+
+    @PostMapping("/remove/sellbid/{id}")
+    public String removeSellOrder(@PathVariable long id, Model model) {
+        tradeService.removeSaleBid(id);
+        logger.info("User removed sellorder: " + id);
+        return "redirect:/order";
+    }
+
+
     @GetMapping("/get/buysellorders")
     public ResponseEntity<AjaxResponseBody> getBuyOrder() {
         AjaxResponseBody result = new AjaxResponseBody("Body created", tradeService.getBuyOrders(), tradeService.getSellOrders());

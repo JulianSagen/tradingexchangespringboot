@@ -11,9 +11,10 @@ import java.util.List;
 @Repository
 public interface TradeSellDAO extends CrudRepository<SellOrder, Long> {
 
-
     List<SellOrder> findAll();
     List<SellOrder>  findAllByOrderByPriceAsc();
     List<SellOrder> findAllByUser(User user);
-    BuyOrder save(BuyOrder buyOrder);
+    SellOrder save(SellOrder sellOrder);
+    void delete(SellOrder sellOrder);
+    SellOrder findById(long id);
 }

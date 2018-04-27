@@ -57,6 +57,27 @@ public class TradeService {
         bookOrders();
     }
 
+    public void removeBuyBid(long buyOrderId){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDAO.findByUsername(((UserDetails)principal).getUsername());
+        if(user == tradeBuyDAO.findById(buyOrderId).getUser()) {
+            logger.info("User: " + user.getUsername() + " deleted buybid with id: " + buyOrderId);
+            tradeBuyDAO.deleteById(buyOrderId);
+        }else{
+            logger.warn("User: " + user.getUsername() + " attempted to delete order while lacking permission. Denied");
+        }
+    }
+
+    public void removeSaleBid(long saleOrderId){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDAO.findByUsername(((UserDetails)principal).getUsername());
+        if(user == tradeSellDAO.findById(saleOrderId).getUser()) {
+            logger.info("User: " + user.getUsername() + " deleted buybid with id: " + saleOrderId);
+            tradeSellDAO.deleteById(saleOrderId);
+        }else{
+            logger.warn("User: " + user.getUsername() + " attempted to delete order while lacking permission. Denied");
+        }
+    }
     public void bookOrders(){
         List<BuyOrder> buyOrders = getBuyOrders();
         List<SellOrder> sellOrders = getSellOrders();

@@ -15,7 +15,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">BitTrade</a>
+    <a class="navbar-brand" href="/">BitTrade</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
             aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -39,7 +39,7 @@
         <div sec:authorize="isAuthenticated()">
             <span class="text-success">USD: <span th:text="${user.usd}"></span></span>
             <span class="text-danger"> Bitcoin: <span th:text="${user.bitcoins}"></span>  </span>
-            <button th:href="@{/logout}" type="button" class="btn btn-danger form-inline my-2 my-lg-0">Logout</button>
+            <a th:href="@{/logout}" type="button" class="btn btn-danger form-inline my-2 my-lg-0">Logout</a>
         </div>
         <div sec:authorize="isAnonymous()">
             <button th:href="@{/login}" type="button" class="btn btn-success">Success</button>
@@ -125,6 +125,9 @@
                     <td th:text="${buyorderfromuser?.totalAmount}"></td>
                     <td th:text="${buyorderfromuser?.price}"></td>
                     <td th:text="${buyorderfromuser?.date}"></td>
+                    <td><form method="POST" th:action="@{/trade/remove/buybid/{id}(id=${buyorderfromuser?.id})}">
+                        <button type="submit" name="submit" value="value" class="btn btn-outline-danger">Remove</button></form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -145,6 +148,9 @@
                     <td th:text="${sellorderfromuser?.totalAmount}"></td>
                     <td th:text="${sellorderfromuser?.price}"></td>
                     <td th:text="${sellorderfromuser?.date}"></td>
+                    <td><form method="POST" th:action="@{/trade/remove/sellbid/{id}(id=${sellorderfromuser?.id})}">
+                        <button type="submit" name="submit" value="value" class="btn btn-outline-danger">Remove</button></form>
+                    </td>
                 </tr>
                 </tbody>
             </table>

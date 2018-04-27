@@ -31,7 +31,7 @@ public class UserController {
         if (userExists == null) {
             loginService.registrerUser(user);
             System.out.println("User registrered");
-            return "redirect:/";
+            return "redirect:/login";
         }else{
             return "registrer";
         }
